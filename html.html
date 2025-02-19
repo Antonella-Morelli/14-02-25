@@ -8,7 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 </head>
 
 <body>
@@ -34,6 +33,7 @@
             </div>
         </div>
     </nav>
+
     <main class="row">
         <!-- Sezione card libri -->
         <div class="container row col p-0" id="book-cards"></div>
@@ -44,7 +44,6 @@
             <div id="cart-items"></div>
             <button class="btn btn-danger" onclick="clearCart()">Svuota Carrello</button>
             <p id="cart-count"></p>
-
         </div>
     </main>
 
@@ -81,7 +80,8 @@
             <h5 class="card-title">${book.title}</h5>
             <p class="card-text">${book.price} € </p>
             <a href="#" class="btn btn-primary mb-2" onclick="addToCart('${book.asin}', '${book.title}', '${book.img}', ${book.price}); return false;">Aggiungi al carrello</a>
-            <a href="#" class="btn btn-primary mb-2">Salta</a>
+            <a href="#" class="btn btn-primary mb-2" onclick="removeCard('${book.asin}')" >Salta</a>
+            <a href="http://192.168.142.236:5500/html.2.html?id=${book.asin}" class="btn btn-primary mb-2" >Dettagli</a>
           </div>
              `
                 container.appendChild(card)
@@ -132,16 +132,14 @@
                     if (cart[i].asin === asin) {
                         isInCart = true
                         break
-                    }
-                }
+                    }}
 
                 if (isInCart) {
                     card.style.border = '2px solid green'
                 } else {
                     card.style.border = 'none'
                 }
-            })
-        }
+            })}
 
         // Funzione per svuotare il carrello 
         function clearCart() {
@@ -166,8 +164,7 @@
                 }
             } else {
                 createCard(data)
-            }
-        }
+            }}
 
         // Funzione per rimuovere un libro dal carrello
         function removeFromCart(asin) {
@@ -180,6 +177,12 @@
             }
         }
 
+        //Funzione per rimuovere la card al click di 'Salta'
+        function removeCard(asin) {
+            const card = document.getElementById(`book-${asin}`)
+            if (card) {
+                card.style.display = 'none'
+            }}
 
     </script>
 
